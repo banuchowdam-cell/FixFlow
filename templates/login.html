@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Log in | FixFlow{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <section class="auth-card">
+    <span class="eyebrow">WELCOME TO FIXFLOW</span>
+    <h1>Log in to continue</h1>
+    <p class="muted">Choose a demo role to explore the prototype.</p>
+    <form method="post">
+      <label>Username<input name="username" required placeholder="student / staff / admin"></label>
+      <label>Password<input name="password" type="password" required placeholder="Enter demo password"></label>
+      <button class="button full" type="submit">Log in</button>
+    </form>
+    <div class="demo-logins">
+      <b>Demo accounts</b>
+      <p><strong>Student:</strong> student / student123</p>
+      <p><strong>Staff:</strong> staff / staff123</p>
+      <p><strong>Admin:</strong> admin / admin123</p>
+    </div>
+  </section>
+</div>
+{% endblock %}

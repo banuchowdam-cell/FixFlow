@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}FixFlow | Smart Campus{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">CAMPUS & HOSTEL FACILITY MANAGEMENT</span>
+    <h1>Campus problems.<br><span>Clear solutions.</span></h1>
+    <p>Report maintenance issues, follow their progress, and help your campus team keep things running smoothly.</p>
+    <a class="button" href="{{ url_for('login') }}">Explore the demo <span>→</span></a>
+  </div>
+  <div class="hero-card">
+    <div class="mock-top"><span></span><span></span><span></span><b>FixFlow overview</b></div>
+    <div class="mock-stat-row">
+      <div class="mock-stat"><small>Reported</small><strong>12</strong></div>
+      <div class="mock-stat"><small>In progress</small><strong>05</strong></div>
+      <div class="mock-stat"><small>Resolved</small><strong>28</strong></div>
+    </div>
+    <div class="mock-ticket"><span class="ticket-icon">⌁</span><div><b>Water leakage</b><small>Hostel Block A · High priority</small></div><em>In progress</em></div>
+    <div class="mock-ticket"><span class="ticket-icon">⚡</span><div><b>Light not working</b><small>Academic Block · Medium</small></div><em class="done">Resolved</em></div>
+  </div>
+</section>
+<section class="feature-grid">
+  <article><div class="feature-icon">＋</div><h3>Easy reporting</h3><p>Submit a complaint with its category, location, and details.</p></article>
+  <article><div class="feature-icon">◎</div><h3>Track progress</h3><p>See whether an issue is reported, in progress, or resolved.</p></article>
+  <article><div class="feature-icon">▦</div><h3>One dashboard</h3><p>Help campus teams organize and monitor maintenance work.</p></article>
+</section>
+{% endblock %}

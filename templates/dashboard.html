@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | FixFlow{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><span class="eyebrow">{{ session.get('role')|upper }} WORKSPACE</span><h1>Hello, {{ session.get('name') }}</h1><p class="muted">Here's the latest campus maintenance activity.</p></div>
+  {% if session.get('role') == 'student' %}<a class="button" href="{{ url_for('new_complaint') }}">＋ Report an issue</a>{% endif %}
+</div>
+<section class="stats-grid">
+  <div class="stat-card"><span>Total complaints</span><strong>{{ counts.total }}</strong><small>All submitted issues</small></div>
+  <div class="stat-card"><span>Reported</span><strong>{{ counts.reported }}</strong><small>Waiting for action</small></div>
+  <div class="stat-card"><span>In progress</span><strong>{{ counts.progress }}</strong><small>Being worked on</small></div>
+  <div class="stat-card"><span>Resolved</span><strong>{{ counts.resolved }}</strong><small>Completed issues</small></div>
+</section>
+<section class="panel">
+  <div class="panel-heading"><div><h2>Maintenance complaints</h2><p class="muted">Review issue details and current status.</p></div></div>
+  {% if complaints %}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Issue</th><th>Location</th><th>Reported by</th><th>Priority</th><th>Status</th>{% if session.get('role') in ['staff','admin'] %}<th>Update</th>{% endif %}</tr></thead>
+    <tbody>
+    {% for c in complaints %}
+      <tr>
+        <td><b>{{ c.category }}</b><small class="table-desc">{{ c.description }}</small>{% if c.photo %}<a class="photo-link" href="{{ url_for('uploaded_file', filename=c.photo) }}" target="_blank">View photo</a>{% endif %}</td>
+        <td>{{ c.location }}</td><td>{{ c.student_name }}<small class="table-desc">{{ c.created_at }}</small></td>
+        <td><span class="priority {{ c.priority|lower }}">{{ c.priority }}</span></td>
+        <td><span class="status {{ c.status|lower|replace(' ', '-') }}">{{ c.status }}</span></td>
+        {% if session.get('role') in ['staff','admin'] %}
+        <td><form class="inline-form" method="post" action="{{ url_for('update_status', complaint_id=c.id) }}"><select name="status"><option {% if c.status=='Reported' %}selected{% endif %}>Reported</option><option {% if c.status=='In Progress' %}selected{% endif %}>In Progress</option><option {% if c.status=='Resolved' %}selected{% endif %}>Resolved</option></select><button class="small-button">Save</button></form></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+  {% else %}<div class="empty-state"><h3>No complaints yet</h3><p>Newly submitted issues will appear here.</p></div>{% endif %}
+</section>
+{% endblock %}
